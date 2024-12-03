@@ -1,0 +1,12 @@
+<launch>
+
+	<arg name="project" default="lio_sam_6axis"/>
+    <arg name="xacro_path" default="$(find lio_sam_6axis)/launch/include/config/robot.ls16.xacro"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(arg xacro_path) --inorder" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true">
+        <!-- <param name="tf_prefix" value="$(env ROS_HOSTNAME)"/> -->
+    </node>
+  
+</launch>
