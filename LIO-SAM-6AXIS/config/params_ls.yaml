@@ -20,8 +20,8 @@ lio_sam_6axis:
   gpsFrequence: 5                             # set proper gps frequence to align gps and lidar timestamp
   useImuHeadingInitialization: false          # if using GPS data, set to "false"
   useGpsElevation: false                      # if GPS elevation is bad, set to "false"
-  gpsCovThreshold: 5                          # m^2, threshold for using GPS data
-  poseCovThreshold: 25                        # m^2, threshold for using GPS data
+  gpsCovThreshold: 5.0                        # m^2, threshold for using GPS data
+  poseCovThreshold: 25.0                      # m^2, threshold for using GPS data
   gpsDistance: 5.0                            # the distance between two gps point used for optimization
 
   # debug setting
