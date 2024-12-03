@@ -1,6 +1,8 @@
 <launch>
     <arg name="project" default="lio_sam_6axis"/>
-    <arg name="bag_path" default="/home/work/autoware.ai/shared_dir/bag/map-6-park/autoware-20241124082629.bag"/>
+    <!-- <arg name="bag_path" default="/home/work/autoware.ai/shared_dir/bag/map-6-park/autoware-20241124082629.bag"/> -->
+    <!-- <arg name="bag_path" default="/media/work/FelixSSD/bag/lio-sam/map-7-height-lidar/2024-11-30-19-34-19.bag"/> -->
+    <arg name="bag_path" default="/media/work/FelixSSD/bag/map-8-jhy-gps/map-8-jhy-gps-241203-2301.bag"/>
     <!-- 
       autoware-20241124082629.bag   (park-zgc)
             sensor      topic                      data_type                     frame_id    hz
@@ -9,7 +11,8 @@
             gps         /gps/fix                   sensor_msgs/NavSatFix         gps         5
             camera      /camera/rgb/image_raw      sensor_msgs/CompressedImage               10
     -->
-    <arg name="sequence" default="hkust_campus"/>
+    <!-- rosservice call /lio_sam_6axis/save_map save data path -->
+    <arg name="sequence" default="jingheyuan"/>
 
     <!--set your own Parameters -->
     <rosparam file="$(find lio_sam_6axis)/config/params_ls.yaml" command="load"/>
@@ -25,9 +28,9 @@
 
     <!--show satellite-->
     <!--set your orgin gps lla  22.3387279108228 114.263622199692 87.7310562180355 -->
-    <node pkg="rostopic" type="rostopic" name="fake_gps_fix"
-          args="pub gps/fix sensor_msgs/NavSatFix '{ header: auto, latitude: 40.06673004666666, longitude: 116.28688409166666, altitude:  30.68}'"
-          output="screen"/>
+    <!-- <node pkg="rostopic" type="rostopic" name="fake_gps_fix" args="pub gps/fix sensor_msgs/NavSatFix '{ header: auto, latitude: 40.06673004666666, longitude: 116.28688409166666, altitude:  30.68}'" output="screen"/> -->
+    <!-- <node pkg="rostopic" type="rostopic" name="fake_gps_fix" args="pub gps/fix sensor_msgs/NavSatFix '{ header: auto, latitude: 40.049064181666665, longitude: 116.25973765166667, altitude:  29.638000000000005}'" output="screen"/> -->
+    <node pkg="rostopic" type="rostopic" name="fake_gps_fix" args="pub gps/fix sensor_msgs/NavSatFix '{ header: auto, latitude: 40.04853333166667, longitude: 116.26005513666667, altitude:  36.568}'" output="screen"/>
 
     <!--- Run Navsat -->
     <node pkg="lio_sam_6axis" type="lio_sam_6axis_gpsOdometry" name="lio_sam_6axis_gpsOdometry" output="log"/>

@@ -3,10 +3,10 @@ lio_sam_6axis:
   #  velodyne16 and h30(9 axis)
 
   # Topics
-  pointCloudTopic: "points_raw"               # Point cloud data
-  imuTopic: "imu_raw"                         # IMU data
+  pointCloudTopic: "points_raw"               # Lidar topic
+  imuTopic: "imu_raw"                         # IMU topic
+  gpsTopic: "gps/fix"                         # GPS topic
   odomTopic: "odometry/imu"                   # IMU pre-preintegration odometry, same frequency as IMU
-  gpsTopic: "gps/fix"                         # GPS odometry topic from navsat, see module_navsat.launch file
 
   # Frames
   lidarFrame: "base_link"
@@ -17,12 +17,12 @@ lio_sam_6axis:
   # GPS Settings
   useGPS: true
   updateOrigin: true                          # when you can not get a reliable gps origin points(RTK fixed)
-  gpsFrequence: 5                             # set proper gps frequence to align gps and lidar timestamp
+  gpsFrequence: 10                            # gps topic帧率（10hz）set proper gps frequence to align gps and lidar timestamp
   useImuHeadingInitialization: false          # if using GPS data, set to "false"
   useGpsElevation: false                      # if GPS elevation is bad, set to "false"
-  gpsCovThreshold: 5.0                        # m^2, threshold for using GPS data
+  gpsCovThreshold: 8.0                        # m^2, threshold for using GPS data
   poseCovThreshold: 25.0                      # m^2, threshold for using GPS data
-  gpsDistance: 5.0                            # the distance between two gps point used for optimization
+  gpsDistance: 5.0                            # 两个gps点相隔多远才触发gps纠偏 the distance between two gps point used for optimization
 
   # debug setting
   debugLidarTimestamp: false
@@ -50,7 +50,7 @@ lio_sam_6axis:
   imuRPYWeight: 0.01
 
   # Extrinsics (lidar -> IMU)
-  imu_type: 1   # 0: 6axis, 1:9 axis
+  imu_type: 0   # 0: 6axis, 1:9 axis
   extrinsicTrans: [ 0.25, 0, 0.15 ]
   extrinsicRot: [ 1, 0, 0,
                   0, 1, 0,
