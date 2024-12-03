@@ -1898,8 +1898,10 @@ public:
             float noise_z = thisGPS.pose.covariance[14];
 
             // make sure the gps data is stable encough
-            if (abs(noise_x) > gpsCovThreshold || abs(noise_y) > gpsCovThreshold)
+            if (abs(noise_x) > gpsCovThreshold || abs(noise_y) > gpsCovThreshold) {
+                ROS_WARN("GPS noise too large: %d,%d > %d", abs(noise_x), abs(noise_y), gpsCovThreshold);
                 return;
+            }
 
 //            float gps_x = thisGPS.pose.pose.position.x;
 //            float gps_y = thisGPS.pose.pose.position.y;
@@ -1920,10 +1922,12 @@ public:
             curGPSPoint.x = gps_x;
             curGPSPoint.y = gps_y;
             curGPSPoint.z = gps_z;
-            if (pointDistance(curGPSPoint, lastGPSPoint) < GPSDISTANCE)
+            if (pointDistance(curGPSPoint, lastGPSPoint) < GPSDISTANCE) {
+                // ROS_INFO("Skip addGPSFactor, Point Distance < gpsDistance: %f < %f", pointDistance(curGPSPoint, lastGPSPoint), GPSDISTANCE);
                 return;
-            else
+            } else {
                 lastGPSPoint = curGPSPoint;
+            }
 
             if (debugGps) {
                 ROS_INFO("curr gps pose: %f, %f , %f", gps_x, gps_y, gps_z);
